@@ -5,12 +5,6 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import io.netty.util.CharsetUtil;
-import io.netty.util.ReferenceCountUtil;
-import io.netty.util.concurrent.Future;
-import io.netty.util.concurrent.GenericFutureListener;
-
-import java.util.function.Consumer;
 
 public class TimeServerHandler extends ChannelInboundHandlerAdapter {
 
