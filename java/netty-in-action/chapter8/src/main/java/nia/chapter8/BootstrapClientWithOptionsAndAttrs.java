@@ -14,17 +14,13 @@ import java.net.InetSocketAddress;
 
 public class BootstrapClientWithOptionsAndAttrs {
 
+    static final AttributeKey<Integer> ID = AttributeKey.newInstance("ID");
+
     static public class MySimpleChannelInboundHandler extends SimpleChannelInboundHandler<io.netty.buffer.ByteBuf> {
-
-        final private AttributeKey<Integer> id;
-
-        public MySimpleChannelInboundHandler(AttributeKey<Integer> id) {
-            this.id = id;
-        }
 
         @Override
         public void channelRegistered(ChannelHandlerContext ctx) {
-            Integer idValue = ctx.channel().attr(id).get();
+            Integer idValue = ctx.channel().attr(ID).get();
         }
 
         @Override
@@ -36,20 +32,18 @@ public class BootstrapClientWithOptionsAndAttrs {
 
     public void bootstrap() {
 
-        final AttributeKey<Integer> id = AttributeKey.newInstance("ID");
-
         Bootstrap bootstrap = new Bootstrap();
 
         bootstrap
             .group(new NioEventLoopGroup())
             .channel(NioSocketChannel.class)
-            .handler(new MySimpleChannelInboundHandler(id));
+            .handler(new MySimpleChannelInboundHandler());
 
         bootstrap
             .option(ChannelOption.SO_KEEPALIVE, true)
             .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000);
 
-        bootstrap.attr(id, 123456);
+        bootstrap.attr(ID, 123456);
 
         ChannelFuture future = bootstrap.connect(new InetSocketAddress("www.manning.com", 80));
 
