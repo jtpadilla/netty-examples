@@ -37,9 +37,7 @@ public class BootstrapClientWithOptionsAndAttrs {
         bootstrap
             .group(new NioEventLoopGroup())
             .channel(NioSocketChannel.class)
-            .handler(new MySimpleChannelInboundHandler());
-
-        bootstrap
+            .handler(new MySimpleChannelInboundHandler())
             .option(ChannelOption.SO_KEEPALIVE, true)
             .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000);
 
