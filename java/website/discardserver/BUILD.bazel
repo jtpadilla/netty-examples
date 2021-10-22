@@ -1,0 +1,18 @@
+package(default_visibility = ["//visibility:public"])
+
+java_binary(
+    name = "discardserver",
+    srcs = glob(["src/main/java/**/*.java"]),
+    main_class = "io.netty.tutorial.discardserver.DiscardServer",
+    deps = [
+        "@maven//:io_netty_netty_buffer",
+        "@maven//:io_netty_netty_codec",
+        "@maven//:io_netty_netty_codec_http",
+        "@maven//:io_netty_netty_codec_mqtt",
+        "@maven//:io_netty_netty_common",
+        "@maven//:io_netty_netty_handler",
+        "@maven//:io_netty_netty_tcnative_boringssl_static",
+        "@maven//:io_netty_netty_transport",
+        "@maven//:io_netty_netty_transport_native_epoll",
+    ],
+)

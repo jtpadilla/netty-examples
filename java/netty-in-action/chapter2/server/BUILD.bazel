@@ -1,0 +1,16 @@
+package(default_visibility = ["//visibility:public"])
+
+java_binary(
+    name = "server",
+    srcs = glob(["src/main/java/**/*.java"]),
+    jvm_flags = [
+        "'-DSC_LOGGER_LEVELS=mqttserver:FINEST'",
+    ],
+    main_class = "nia.chapter2.echoserver.EchoServer",
+    deps = [
+        "@maven//:io_netty_netty_buffer",
+        "@maven//:io_netty_netty_codec",
+        "@maven//:io_netty_netty_common",
+        "@maven//:io_netty_netty_transport",
+    ],
+)

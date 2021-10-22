@@ -1,0 +1,1 @@
+exports_files(["vigia_backend_deps.bzl"])
