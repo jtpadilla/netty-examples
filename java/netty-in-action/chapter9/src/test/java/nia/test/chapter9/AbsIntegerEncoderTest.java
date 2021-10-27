@@ -16,14 +16,14 @@ public class AbsIntegerEncoderTest {
             buf.writeInt(i * -1);
         }
 
-        EmbeddedChannel channel = new EmbeddedChannel(
-            new AbsIntegerEncoder());
+        EmbeddedChannel channel = new EmbeddedChannel(new AbsIntegerEncoder());
         assertTrue(channel.writeOutbound(buf));
         assertTrue(channel.finish());
 
         // read bytes
         for (int i = 1; i < 10; i++) {
-            assertEquals(i, channel.readOutbound());
+            Object o = channel.readOutbound();
+            assertEquals(i, o);
         }
         assertNull(channel.readOutbound());
     }

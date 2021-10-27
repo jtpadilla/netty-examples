@@ -16,7 +16,7 @@ java_test(
     name = "chapter9Tests",
     srcs = glob(["src/test/java/**/*.java"]),
     test_class = "nia.test.chapter9.Chapter09Tests",
-    runtime_deps = [
+    deps = [
         ":chapter9",
         "@maven//:io_netty_netty_buffer",
         "@maven//:io_netty_netty_codec",
