@@ -11,3 +11,18 @@ java_library(
         "@maven//:io_netty_netty_transport",
     ],
 )
+
+java_test(
+    name = "chapter9Tests",
+    srcs = glob(["src/test/java/**/*.java"]),
+    test_class = "nia.test.chapter9.Chapter09Tests",
+    runtime_deps = [
+        ":chapter9",
+        "@maven//:io_netty_netty_buffer",
+        "@maven//:io_netty_netty_codec",
+        "@maven//:io_netty_netty_codec_http",
+        "@maven//:io_netty_netty_common",
+        "@maven//:io_netty_netty_transport",
+        "@maven//:junit_junit",
+    ],
+)

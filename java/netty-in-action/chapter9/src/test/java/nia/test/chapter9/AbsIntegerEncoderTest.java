@@ -8,11 +8,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-/**
- * Listing 9.4 Testing the AbsIntegerEncoder
- *
- * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
- */
 public class AbsIntegerEncoderTest {
     @Test
     public void testEncoded() {
