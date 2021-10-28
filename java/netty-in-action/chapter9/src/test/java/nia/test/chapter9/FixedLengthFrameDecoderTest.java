@@ -8,69 +8,91 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-/**
- * Listing 9.2 Testing the FixedLengthFrameDecoder
- *
- * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
- */
 public class FixedLengthFrameDecoderTest {
+
     @Test
     public void testFramesDecoded() {
+
+        // Se prepara un buffer con 9 bytes
         ByteBuf buf = Unpooled.buffer();
         for (int i = 0; i < 9; i++) {
             buf.writeByte(i);
         }
+
+        // Se genera un duplicado del buffer (compartiendo el buffer subyacente)
         ByteBuf input = buf.duplicate();
-        EmbeddedChannel channel = new EmbeddedChannel(
-            new FixedLengthFrameDecoder(3));
-        // write bytes
+
+        // Se crea un canal con un encoder que traspasa los bytes en bloques de 3
+        EmbeddedChannel channel = new EmbeddedChannel(new FixedLengthFrameDecoder(3));
+
+        // Se escriben los 9 bytes de 'input'
         assertTrue(channel.writeInbound(input.retain()));
         assertTrue(channel.finish());
 
-        // read messages
+        // Se lee un buffer de 3 bytes (y se verifica con el buffer original)
         ByteBuf read = (ByteBuf) channel.readInbound();
         assertEquals(buf.readSlice(3), read);
         read.release();
 
+        // Se lee un buffer de 3 bytes (y se verifica con el buffer original)
         read = (ByteBuf) channel.readInbound();
         assertEquals(buf.readSlice(3), read);
         read.release();
 
+        // Se lee un buffer de 3 bytes (y se verifica con el buffer original)
         read = (ByteBuf) channel.readInbound();
         assertEquals(buf.readSlice(3), read);
         read.release();
 
+        // Ahora la lectura tiene que retornar un null
         assertNull(channel.readInbound());
         buf.release();
+
     }
 
     @Test
     public void testFramesDecoded2() {
+
+        // Se prepara un buffer con 9 bytes
         ByteBuf buf = Unpooled.buffer();
         for (int i = 0; i < 9; i++) {
             buf.writeByte(i);
         }
+
+        // Se genera un duplicado del buffer (compartiendo el buffer subyacente)
         ByteBuf input = buf.duplicate();
 
-        EmbeddedChannel channel = new EmbeddedChannel(
-            new FixedLengthFrameDecoder(3));
+        // Se crea un canal con un encoder que traspasa los bytes en bloques de 3
+        EmbeddedChannel channel = new EmbeddedChannel(new FixedLengthFrameDecoder(3));
+
+        // Primero se escriben 2 bytes
         assertFalse(channel.writeInbound(input.readBytes(2)));
+
+        // Despues los 7 bytes restantes
         assertTrue(channel.writeInbound(input.readBytes(7)));
 
+        // Se cierra el canal.
         assertTrue(channel.finish());
+
+        // Se lee un buffer de 3 bytes (y se verifica con el buffer original)
         ByteBuf read = (ByteBuf) channel.readInbound();
         assertEquals(buf.readSlice(3), read);
         read.release();
 
+        // Se lee un buffer de 3 bytes (y se verifica con el buffer original)
         read = (ByteBuf) channel.readInbound();
         assertEquals(buf.readSlice(3), read);
         read.release();
 
+        // Se lee un buffer de 3 bytes (y se verifica con el buffer original)
         read = (ByteBuf) channel.readInbound();
         assertEquals(buf.readSlice(3), read);
         read.release();
 
+        // Ahora la lectura tiene que retornar un null
         assertNull(channel.readInbound());
         buf.release();
+
     }
+
 }
