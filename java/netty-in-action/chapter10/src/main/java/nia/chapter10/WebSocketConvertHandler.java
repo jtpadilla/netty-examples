@@ -43,45 +43,44 @@ public class WebSocketConvertHandler extends MessageToMessageCodec<WebSocketFram
                  break;
 
              default:
-                 throw new IllegalStateException(
-                     "Unsupported websocket msg " + msg);}
+                 throw new IllegalStateException("Unsupported websocket msg " + msg);
+
+         }
+
     }
 
     @Override
-    protected void decode(ChannelHandlerContext ctx, WebSocketFrame msg,
-        List<Object> out) throws Exception {
+    protected void decode(ChannelHandlerContext ctx, WebSocketFrame msg, List<Object> out) throws Exception {
+
         ByteBuf payload = msg.content().duplicate().retain();
+
         if (msg instanceof BinaryWebSocketFrame) {
-            out.add(new MyWebSocketFrame(
-                    MyWebSocketFrame.FrameType.BINARY, payload));
-        } else
-        if (msg instanceof CloseWebSocketFrame) {
-            out.add(new MyWebSocketFrame (
-                    MyWebSocketFrame.FrameType.CLOSE, payload));
-        } else
-        if (msg instanceof PingWebSocketFrame) {
-            out.add(new MyWebSocketFrame (
-                    MyWebSocketFrame.FrameType.PING, payload));
-        } else
-        if (msg instanceof PongWebSocketFrame) {
-            out.add(new MyWebSocketFrame (
-                    MyWebSocketFrame.FrameType.PONG, payload));
-        } else
-        if (msg instanceof TextWebSocketFrame) {
-            out.add(new MyWebSocketFrame (
-                    MyWebSocketFrame.FrameType.TEXT, payload));
-        } else
-        if (msg instanceof ContinuationWebSocketFrame) {
-            out.add(new MyWebSocketFrame (
-                    MyWebSocketFrame.FrameType.CONTINUATION, payload));
-        } else
-        {
-            throw new IllegalStateException(
-                    "Unsupported websocket msg " + msg);
+            out.add(new MyWebSocketFrame(MyWebSocketFrame.FrameType.BINARY, payload));
+
+        } else if (msg instanceof CloseWebSocketFrame) {
+            out.add(new MyWebSocketFrame (MyWebSocketFrame.FrameType.CLOSE, payload));
+
+        } else if (msg instanceof PingWebSocketFrame) {
+            out.add(new MyWebSocketFrame (MyWebSocketFrame.FrameType.PING, payload));
+
+        } else if (msg instanceof PongWebSocketFrame) {
+            out.add(new MyWebSocketFrame (MyWebSocketFrame.FrameType.PONG, payload));
+
+        } else if (msg instanceof TextWebSocketFrame) {
+            out.add(new MyWebSocketFrame (MyWebSocketFrame.FrameType.TEXT, payload));
+
+        } else if (msg instanceof ContinuationWebSocketFrame) {
+            out.add(new MyWebSocketFrame (MyWebSocketFrame.FrameType.CONTINUATION, payload));
+
+        } else {
+            throw new IllegalStateException("Unsupported websocket msg " + msg);
+
         }
+
     }
 
     public static final class MyWebSocketFrame {
+
         public enum FrameType {
             BINARY,
             CLOSE,
@@ -90,6 +89,7 @@ public class WebSocketConvertHandler extends MessageToMessageCodec<WebSocketFram
             TEXT,
             CONTINUATION
         }
+
         private final FrameType type;
         private final ByteBuf data;
 
@@ -97,12 +97,16 @@ public class WebSocketConvertHandler extends MessageToMessageCodec<WebSocketFram
             this.type = type;
             this.data = data;
         }
+
         public FrameType getType() {
             return type;
         }
+
         public ByteBuf getData() {
             return data;
         }
+
     }
+
 }
 
