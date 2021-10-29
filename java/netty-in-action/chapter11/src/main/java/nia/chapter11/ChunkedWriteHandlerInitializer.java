@@ -36,6 +36,7 @@ public class ChunkedWriteHandlerInitializer extends ChannelInitializer<Channel> 
             ctx.writeAndFlush(
             new ChunkedStream(new FileInputStream(file)));
         }
+
     }
 
 }
