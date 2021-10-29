@@ -14,10 +14,12 @@ public class LineBasedHandlerInitializer extends ChannelInitializer<Channel> {
     }
 
     public static final class FrameHandler extends SimpleChannelInboundHandler<ByteBuf> {
+
         @Override
         public void channelRead0(ChannelHandlerContext ctx, ByteBuf msg) throws Exception {
             // Do something with the data extracted from the frame
         }
+
     }
 
 }
