@@ -17,34 +17,13 @@ public class WebSocketConvertHandler extends MessageToMessageCodec<WebSocketFram
          ByteBuf payload = msg.getData().duplicate().retain();
 
          switch (msg.getType()) {
-
-             case BINARY:
-                 out.add(new BinaryWebSocketFrame(payload));
-                 break;
-
-             case TEXT:
-                 out.add(new TextWebSocketFrame(payload));
-                 break;
-
-             case CLOSE:
-                 out.add(new CloseWebSocketFrame(true, 0, payload));
-                 break;
-
-             case CONTINUATION:
-                 out.add(new ContinuationWebSocketFrame(payload));
-                 break;
-
-             case PONG:
-                 out.add(new PongWebSocketFrame(payload));
-                 break;
-
-             case PING:
-                 out.add(new PingWebSocketFrame(payload));
-                 break;
-
-             default:
-                 throw new IllegalStateException("Unsupported websocket msg " + msg);
-
+             case BINARY -> out.add(new BinaryWebSocketFrame(payload));
+             case TEXT -> out.add(new TextWebSocketFrame(payload));
+             case CLOSE -> out.add(new CloseWebSocketFrame(true, 0, payload));
+             case CONTINUATION -> out.add(new ContinuationWebSocketFrame(payload));
+             case PONG -> out.add(new PongWebSocketFrame(payload));
+             case PING -> out.add(new PingWebSocketFrame(payload));
+             default -> throw new IllegalStateException("Unsupported websocket msg " + msg);
          }
 
     }

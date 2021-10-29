@@ -10,12 +10,8 @@ import io.netty.handler.ssl.SslHandler;
 
 import javax.net.ssl.SSLEngine;
 
-/**
- * Listing 11.5 Using HTTPS
- *
- * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
- */
 public class HttpsCodecInitializer extends ChannelInitializer<Channel> {
+
     private final SslContext context;
     private final boolean isClient;
 
@@ -36,4 +32,5 @@ public class HttpsCodecInitializer extends ChannelInitializer<Channel> {
             pipeline.addLast("codec", new HttpServerCodec());
         }
     }
+
 }

@@ -7,12 +7,8 @@ import io.netty.handler.codec.http.HttpClientCodec;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
 
-/**
- * Listing 11.3 Automatically aggregating HTTP message fragments
- *
- * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
- */
 public class HttpAggregatorInitializer extends ChannelInitializer<Channel> {
+
     private final boolean isClient;
 
     public HttpAggregatorInitializer(boolean isClient) {
@@ -27,7 +23,7 @@ public class HttpAggregatorInitializer extends ChannelInitializer<Channel> {
         } else {
             pipeline.addLast("codec", new HttpServerCodec());
         }
-        pipeline.addLast("aggregator",
-                new HttpObjectAggregator(512 * 1024));
+        pipeline.addLast("aggregator", new HttpObjectAggregator(512 * 1024));
     }
+
 }

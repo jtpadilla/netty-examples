@@ -8,13 +8,8 @@ import io.netty.handler.codec.http.HttpRequestEncoder;
 import io.netty.handler.codec.http.HttpResponseDecoder;
 import io.netty.handler.codec.http.HttpResponseEncoder;
 
-/**
- * Listing 11.2 Adding support for HTTP
- *
- * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
- */
-
 public class HttpPipelineInitializer extends ChannelInitializer<Channel> {
+
     private final boolean client;
 
     public HttpPipelineInitializer(boolean client) {
@@ -32,4 +27,5 @@ public class HttpPipelineInitializer extends ChannelInitializer<Channel> {
             pipeline.addLast("encoder", new HttpResponseEncoder());
         }
     }
+
 }
