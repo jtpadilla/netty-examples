@@ -9,12 +9,8 @@ import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
 
-/**
- * Listing 12.3 Initializing the ChannelPipeline
- *
- * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
- */
 public class ChatServerInitializer extends ChannelInitializer<Channel> {
+
     private final ChannelGroup group;
 
     public ChatServerInitializer(ChannelGroup group) {
@@ -31,4 +27,5 @@ public class ChatServerInitializer extends ChannelInitializer<Channel> {
         pipeline.addLast(new WebSocketServerProtocolHandler("/ws"));
         pipeline.addLast(new TextWebSocketFrameHandler(group));
     }
+
 }
