@@ -12,8 +12,9 @@ import java.net.URL;
 
 public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
 
-    private final String wsUri;
-    private static final File INDEX;
+    static final private File INDEX;
+
+    final private String wsUri;
 
     static {
 
@@ -39,10 +40,11 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
     @Override
     public void channelRead0(ChannelHandlerContext ctx, FullHttpRequest request) throws Exception {
 
-        if (wsUri.equalsIgnoreCase(request.getUri())) {
+        if (wsUri.equalsIgnoreCase(request.uri())) {
             ctx.fireChannelRead(request.retain());
 
         } else {
+
             if (HttpHeaders.is100ContinueExpected(request)) {
                 send100Continue(ctx);
             }
